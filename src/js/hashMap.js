@@ -36,14 +36,14 @@ export default class HashMap {
     this.buckets = new Array(this.capacity);
     this.size = 0;
 
-    for (const bucket of oldBuckets) {
+    oldBuckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           const [key, value] = bucket[i];
           this.set(key, value);
         }
       }
-    }
+    });
   }
 
   set(key, value) {
@@ -119,13 +119,13 @@ export default class HashMap {
   keys() {
     const keys = [];
 
-    for (const bucket of this.buckets) {
+    this.buckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           keys.push(bucket[i][0]);
         }
       }
-    }
+    });
 
     return keys;
   }
@@ -133,13 +133,13 @@ export default class HashMap {
   values() {
     const values = [];
 
-    for (const bucket of this.buckets) {
+    this.buckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           values.push(bucket[i][1]);
         }
       }
-    }
+    });
 
     return values;
   }
@@ -147,13 +147,13 @@ export default class HashMap {
   entries() {
     const entries = [];
 
-    for (const bucket of this.buckets) {
+    this.buckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           entries.push(bucket[i]);
         }
       }
-    }
+    });
 
     return entries;
   }

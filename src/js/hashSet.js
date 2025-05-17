@@ -36,14 +36,14 @@ export default class HashSet {
     this.buckets = new Array(this.capacity);
     this.size = 0;
 
-    for (const bucket of oldBuckets) {
+    oldBuckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           const [key] = bucket[i];
           this.set(key);
         }
       }
-    }
+    });
   }
 
   set(key) {
@@ -118,13 +118,13 @@ export default class HashSet {
   keys() {
     const keys = [];
 
-    for (const bucket of this.buckets) {
+    this.buckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
           keys.push(bucket[i]);
         }
       }
-    }
+    });
 
     return keys;
   }
