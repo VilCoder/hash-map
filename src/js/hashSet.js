@@ -39,8 +39,7 @@ export default class HashSet {
     oldBuckets.forEach((bucket) => {
       if (bucket) {
         for (let i = 0; i < bucket.length; i++) {
-          const [key] = bucket[i];
-          this.set(key);
+          this.set(bucket[i]);
         }
       }
     });

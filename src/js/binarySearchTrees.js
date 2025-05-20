@@ -182,7 +182,83 @@ function postOrder(root, callback) {
 
   postOrder(root.left, callback);
   postOrder(root.right, callback);
-  callback(root);
+  callback(root.data);
+}
+
+function height(node) {
+  if (node === null) {
+    return -1;
+  }
+
+  const leftHeight = height(node.left);
+  const rightHeight = height(node.right);
+
+  return 1 + Math.max(leftHeight, rightHeight);
+}
+
+function heightNode(root, value) {
+  const node = find(root, value);
+
+  if (node === null) {
+    return node;
+  }
+
+  return height(node);
+}
+
+function depth(root, value) {
+  if (root === null) {
+    return null;
+  }
+
+  if (value === root.data) {
+    return 0;
+  }
+
+  const leftDepth = depth(root.left, value);
+
+  if (leftDepth !== null) {
+    return leftDepth + 1;
+  }
+
+  const rightDepth = depth(root.right, value);
+
+  if (rightDepth !== null) {
+    return rightDepth + 1;
+  }
+
+  return null;
+}
+
+function isBalance(root) {
+  if (root === null) {
+    return true;
+  }
+
+  const leftHeight = height(root.left);
+  const rightHeight = height(root.right);
+
+  if (Math.abs(leftHeight - rightHeight) > 1) {
+    return false;
+  }
+
+  return isBalance(root.left) && isBalance(root.right);
+}
+
+function rebalance(root) {
+  if (root === null) {
+    return true;
+  }
+
+  const valueNodes = [];
+
+  preOrder(root, (node) => {
+    valueNodes.push(node.data);
+  });
+
+  const newRoot = buildTree(valueNodes);
+  const tree = new Tree(newRoot);
+  return tree.root;
 }
 
 // Print the Tree
@@ -207,21 +283,30 @@ const tree = new Tree(root);
 insert(tree.root, 30);
 insert(tree.root, 20);
 insert(tree.root, 40);
-deleteItem(tree.root, 1);
-console.log(find(tree.root, 3));
+// deleteItem(tree.root, 1);
+// deleteItem(tree.root, 7);
+// console.log(find(tree.root, 3));
 prettyPrint(tree.root);
-levelOrder(tree.root, (node) => {
-  console.log(node);
-});
+// levelOrder(tree.root, (node) => {
+//   console.log(node);
+// });
 
-preOrder(tree.root, (node) => {
-  console.log(node);
-});
+// preOrder(tree.root, (node) => {
+//   console.log(node.data);
+// });
 
-inOrder(tree.root, (node) => {
-  console.log(node);
-});
+// inOrder(tree.root, (node) => {
+//   console.log(node);
+// });
 
-postOrder(tree.root, (node) => {
-  console.log(node);
-});
+// postOrder(tree.root, (node) => {
+//   console.log(node);
+// });
+
+// console.log(heightNode(tree.root, 4));
+// console.log(depth(tree.root, 50));
+
+// console.log(isBalance(tree.root));
+
+tree.root = rebalance(tree.root);
+prettyPrint(tree.root);
